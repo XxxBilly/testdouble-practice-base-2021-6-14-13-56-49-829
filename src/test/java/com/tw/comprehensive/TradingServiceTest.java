@@ -42,4 +42,17 @@ class TradingServiceTest {
     assertEquals("trade", resultTrade.getDescription());
   }
 
+  @Test
+  void should_call_createTrade_and_return_trade_id_is_1_when_execute_createTrade() {
+    // mock
+    TradeRepository mockTradeRepo = spy(TradeRepository.class);
+
+    // when
+    TradingService tradeService = new TradingService(mockTradeRepo, new AuditService());
+    Long resultId = tradeService.createTrade(any());
+
+    // then
+    verify(mockTradeRepo, times(1)).createTrade(any());
+    assertEquals(1L, resultId);
+  }
 }
